@@ -8,6 +8,39 @@
 // Example:
 //   fib(4) === 3
 
-function fib(n) {}
+// my solution
+// this is also the first solution in the video
+// this seems to be linear runtime complexity
+// function fib(n) {
+//     var arr = [0,1]
+//     for(let i=2; i<=n; i+=1){
+//         arr.push(arr[i-1] + arr[i-2])
+//     }
+//     return arr[n]
+// }
+
+// recursive solution
+// this is exponential runtime
+function slowFib(n){
+    if (n<2){
+        return n;
+    }
+    return fib(n-1) + fib(n-2)
+}
+
+// memiozed recursive solution
+//working, very generic memoize function
+function memoize(cb){
+    const cache = {};
+    return function(...args){
+        if (cache[args]){
+            return cache[args];
+        }
+        const result = cb.apply(this, args);
+        cache[args] = result;
+        return result;
+    }
+}
+const fib = memoize(slowFib)
 
 module.exports = fib;
